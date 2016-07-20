@@ -19,6 +19,18 @@ describe('authorized-middleware', () => {
         expect(authorized).to.exist.and.be.a('function');
     });
 
+    it('should expose middleware function name', () => {
+        let middleware = authorized();
+
+        expect(middleware.name).to.equal('authorized');
+    });
+
+    it('should expose authorized roles on middleware', () => {
+        let middleware = authorized(['test']);
+
+        expect(middleware.roles).to.deep.equal(['test']);
+    });
+
     it('should return a middleware function', () => {
         let middleware = authorized();
 

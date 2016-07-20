@@ -10,7 +10,7 @@ export default (roles) => {
         roles = [roles];
     }
 
-    return (req, res, next) => {
+    function authorized(req, res, next) {
         if (!req.user) {
             return next(new UnauthenticatedError());
         }
@@ -20,5 +20,9 @@ export default (roles) => {
         }
 
         return next(new UnauthorizedError());
-    };
+    }
+
+    authorized.roles = roles;
+
+    return authorized;
 };
